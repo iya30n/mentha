@@ -21,23 +21,22 @@ type classification struct {
 	Proability float32
 }
 
-func Classify(imagePath string) {
+func Classify(img image.Image)[]string {
 	os.Setenv("TF_CPP_MIN_LOG_LEVEL", "2")
 
 	modelPath := "./model/2"
 
 	loadLabels(modelPath)
 	model = tg.LoadModel(modelPath, []string{"serve"}, nil)
-	img, err := loadImage(imagePath)
-	if err != nil {
-		log.Fatal(err.Error())
-	}
 
 	classifications := mainHandler(img)
 
+	var results []string
 	for _, cl := range classifications {
-		fmt.Println(cl.Label)
+		results = append(results, cl.Label)
 	}
+
+	return results
 }
 
 func mainHandler(img image.Image) []classification {
