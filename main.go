@@ -19,8 +19,8 @@ var (
 	model  *tg.Model
 	labels []string
 
-	modelPath string = "/your/path"
-	imagePath string = "/your/path"
+	modelPath string = "./model/2"
+	imagePath string = "./images/canary.jpg"
 )
 
 func main() {
@@ -86,14 +86,14 @@ func mainHandler(img image.Image) []classification {
 		[]tf.Output{
 			model.Op("StatefulPartitionedCall", 0),
 		}, map[tf.Output]*tf.Tensor{
-			model.Op("serving_default_inputs", 0): normalizedImg,
+			model.Op("serving_default_input_1", 0): normalizedImg,
 		},
 	)
 
 	probabilities := results[0].Value().([][]float32)[0]
 	classifications := []classification{}
 	for i, p := range probabilities {
-		if p < 5 {
+		if p < -1 {
 			continue
 		}
 		classifications = append(classifications, classification{
@@ -108,9 +108,9 @@ func mainHandler(img image.Image) []classification {
 }
 
 func createTensor(img image.Image) (*tf.Tensor, error) {
-	nrgbaImg := imaging.Fill(img, 224, 224, imaging.Center, imaging.Lanczos)
+	nrgbaImg := imaging.Fill(img, 512, 512, imaging.Center, imaging.Lanczos)
 
-	return imageToTensor(nrgbaImg, 224, 224)
+	return imageToTensor(nrgbaImg, 512, 512)
 }
 
 func imageToTensor(img image.Image, imageHeight, imageWidth int) (tfTensor *tf.Tensor, err error) {
