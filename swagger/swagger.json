@@ -3,7 +3,7 @@
 	"info": {
 		"title": "Mentha API"
 	},
-	"host": "petstore.swagger.io",
+	"host": "185.97.116.65",
 	"basePath": "/v2",
 	"schemes": [
 		"https",
