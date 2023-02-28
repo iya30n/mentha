@@ -1,0 +1,81 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"title": "Mentha API"
+	},
+	"host": "petstore.swagger.io",
+	"basePath": "/v2",
+	"schemes": [
+		"https",
+		"http"
+	],
+	"paths": {
+		"/upload": {
+			"post": {
+				"tags": [
+					"classification"
+				],
+				"summary": "uploads an image to classify",
+				"description": "",
+				"operationId": "uploadFile",
+				"consumes": [
+					"multipart/form-data"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"name": "image",
+						"in": "formData",
+						"description": "file to upload",
+						"required": true,
+						"type": "file"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/ClassificationResponse"
+						}
+					}
+				},
+				"security": [
+					{
+						"petstore_auth": [
+							"write:pets",
+							"read:pets"
+						]
+					}
+				]
+			}
+		}
+	},
+	"securityDefinitions": {
+		"api_key": {
+			"type": "apiKey",
+			"name": "api_key",
+			"in": "header"
+		},
+		"petstore_auth": {
+			"type": "oauth2",
+			"authorizationUrl": "https://petstore.swagger.io/oauth/authorize",
+			"flow": "implicit",
+			"scopes": {
+				"read:pets": "read your pets",
+				"write:pets": "modify pets in your account"
+			}
+		}
+	},
+	"definitions": {
+		"ClassificationResponse": {
+			"type": "object",
+			"properties": {
+				"result": {
+					"type": "array(string)"
+				}
+			}
+		}
+	}
+}
