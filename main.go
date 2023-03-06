@@ -23,7 +23,7 @@ func handleFile(w http.ResponseWriter, req *http.Request) {
 
 	w.WriteHeader(http.StatusAccepted)
 	results := imageClassifier.Classify(img)
-	json.NewEncoder(w).Encode(results)
+	json.NewEncoder(w).Encode(map[string][]string{"result": results})
 }
 
 func main() {
