@@ -4,9 +4,8 @@
 		"title": "Mentha API"
 	},
 	"host": "185.97.116.65",
-	"basePath": "/v2",
+	"basePath": "/",
 	"schemes": [
-		"https",
 		"http"
 	],
 	"paths": {
