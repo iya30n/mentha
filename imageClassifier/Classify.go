@@ -21,7 +21,7 @@ type classification struct {
 	Proability float32
 }
 
-func Classify(img image.Image)[]string {
+func Classify(img image.Image) []string {
 	os.Setenv("TF_CPP_MIN_LOG_LEVEL", "2")
 
 	modelPath := "./model/2"
@@ -56,7 +56,7 @@ func mainHandler(img image.Image) []classification {
 	probabilities := results[0].Value().([][]float32)[0]
 	classifications := []classification{}
 	for i, p := range probabilities {
-		if p < -1 {
+		if p < -5 {
 			continue
 		}
 		classifications = append(classifications, classification{
