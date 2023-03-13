@@ -3,10 +3,10 @@
 	"info": {
 		"title": "Mentha API"
 	},
-	"host": "185.97.116.65",
+	"host": "37.152.177.237:9090",
 	"basePath": "/",
 	"schemes": [
-		"http"
+		"http"
 	],
 	"paths": {
 		"/upload": {
